@@ -1,0 +1,15 @@
+{
+  "name": "com.gamelokal.toolkit",
+  "version": "1.0.0",
+  "displayName": "Game Lokal Toolkit",
+  "description": "Tools for making game development easier",
+  "unity": "2019.3",
+  "dependencies": {
+    
+  },
+  "author": {
+    "name": "Reynold Erwandi",
+    "email": "reynold@erwandi.com",
+    "url": "http://erwandi.com"
+  }
+}
