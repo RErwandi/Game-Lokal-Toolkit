@@ -69,3 +69,9 @@ crashlytics-build.properties
 Assets/Testing Scenes.meta
 
 Assets/Testing Scenes/
+
+Assets/Plugins/
+
+Assets/Plugins.meta
+
+ProjectSettings/ProjectSettings.asset
