@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 7305880467574584776, guid: c788fc214603ddd41b3834e2f6814512,
     type: 3}
-  autoExpand: 0
+  autoExpand: 1
   maxInstances: 5
 --- !u!114 &53585429
 MonoBehaviour:
