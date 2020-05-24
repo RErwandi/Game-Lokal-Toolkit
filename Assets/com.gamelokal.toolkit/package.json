@@ -1,6 +1,6 @@
 {
   "name": "com.gamelokal.toolkit",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "displayName": "Game Lokal Toolkit",
   "description": "Tools for making game development easier",
   "unity": "2019.3",
@@ -11,5 +11,17 @@
     "name": "Reynold Erwandi",
     "email": "reynold@erwandi.com",
     "url": "http://erwandi.com"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "State Machine Examples",
+      "description": "Sample usage for state machine usage",
+      "path": "Samples~/State Machine"
+    },
+    {
+      "displayName": "Object Pooling Examples",
+      "description": "Sample usage for object pooling usage",
+      "path": "Samples~/Object Pooling"
+    }
+  ]
 }
