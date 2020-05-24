@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,13 +7,35 @@ namespace GameLokal.Utility
 {
     public abstract class ObjectPool<T> : MonoBehaviour where T : Component
     {
+        #region Public Field
+        
         public T objectToPool;
         public bool autoExpand = true;
         [HideIf("autoExpand")]
         public int maxInstances = 10;
+        
+        #endregion
+        
+        #region Private Field
 
         private List<T> _pools = new List<T>();
+        
+        #endregion
 
+        #region MonoBehaviour Callbacks
+        
+        private void Start()
+        {
+            if (!autoExpand)
+            {
+                InitPool();
+            }
+        }
+        
+        #endregion
+        
+        #region Virtual Method
+        
         protected virtual T CreateInstance()
         {
             var instance = Instantiate(objectToPool, transform);
@@ -42,14 +63,10 @@ namespace GameLokal.Utility
             
             Destroy(instance);
         }
-
-        private void Start()
-        {
-            if (!autoExpand)
-            {
-                InitPool();
-            }
-        }
+        
+        #endregion
+        
+        #region Private Method
 
         private void InitPool()
         {
@@ -60,6 +77,10 @@ namespace GameLokal.Utility
                 Return(instance);
             }
         }
+        
+        #endregion
+
+        #region Public Method
 
         public T Rent()
         {
@@ -103,5 +124,7 @@ namespace GameLokal.Utility
                 OnClear(pool);
             }
         }
+        
+        #endregion
     }
 }
