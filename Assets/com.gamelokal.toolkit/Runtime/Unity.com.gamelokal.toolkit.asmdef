@@ -1,3 +1,13 @@
-﻿{
-	"name": "Unity.com.gamelokal.toolkit"
+{
+    "name": "Unity.com.gamelokal.toolkit",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
