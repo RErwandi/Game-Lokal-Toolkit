@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GameLokal.Utility
 {
+    [AddComponentMenu("Game Lokal/State Machine")]
     public class StateMachine : MonoBehaviour
     {
         #region CONSTANT
@@ -22,8 +23,7 @@ namespace GameLokal.Utility
         
         #region PUBLIC FIELD
         
-        public bool enableDefaultState;
-        [ShowIf("enableDefaultState"), ValueDropdown("AvailableStates")]
+        [ValueDropdown("AvailableStates"), Required]
         public string defaultState;
         public State[] states = new State[0];
         
@@ -65,11 +65,26 @@ namespace GameLokal.Utility
                 if(state.gameObject.activeSelf)
                     state.gameObject.SetActive(false);
             }
-
-            if(enableDefaultState) 
-                SetState(defaultState);
+            
+            SetState(defaultState);
         }
 
+        private List<string> AvailableStates
+        {
+            get
+            {
+                return states.Select(state => state.StateName).ToList();
+            }
+        }
+        
+        #endregion
+
+        #region PUBLIC METHODS
+
+        /// <summary>
+        /// Change state. this will call OnStateExit on the current state before calling OnStateEnter on the target state.
+        /// </summary>
+        /// <param name="stateName">Name of the state</param>
         public void SetState(string stateName)
         {
             State newState = states.FirstOrDefault(o => o.StateName == stateName);
@@ -97,14 +112,6 @@ namespace GameLokal.Utility
                 Log.Show($"{gameObject.name} : Trying to set unknown state {stateName}", DEBUG_TYPE);
         }
 
-        private List<string> AvailableStates
-        {
-            get
-            {
-                return states.Select(state => state.StateName).ToList();
-            }
-        }
-        
         #endregion
 
     }
