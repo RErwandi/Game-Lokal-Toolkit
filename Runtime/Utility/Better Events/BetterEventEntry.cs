@@ -1,11 +1,9 @@
-﻿using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using Sirenix.Utilities;
+﻿using Sirenix.Serialization;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.BetterEvent
 {
     [Serializable]
     public class BetterEventEntry : ISerializationCallbackReceiver

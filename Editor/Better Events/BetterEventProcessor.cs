@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 // This turns the BetterEventEntry.ParameterValues object array into properties in the inspector.
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.BetterEvent
 {
     public class BetterEventProcessor : OdinPropertyProcessor<BetterEventEntry>
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GameLokal
+namespace GameLokal.Common
 {
     public static class Log
     {

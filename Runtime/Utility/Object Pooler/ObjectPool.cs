@@ -3,7 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.ObjectPooler
 {
     public abstract class ObjectPool<T> : MonoBehaviour where T : Component
     {

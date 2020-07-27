@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace GameLokal.Utility
+namespace GameLokal.Editor
 {
     public struct DelegateInfo
     {

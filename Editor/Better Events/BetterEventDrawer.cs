@@ -5,8 +5,9 @@ using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using GameLokal.Editor;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.BetterEvent
 {
     public class BetterEventDrawer : OdinValueDrawer<BetterEventEntry>
     {

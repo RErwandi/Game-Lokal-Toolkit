@@ -1,4 +1,6 @@
-﻿namespace GameLokal.Utility
+﻿using GameLokal.Common;
+
+namespace GameLokal.Utility.Singleton
 {
 	using UnityEngine;
 

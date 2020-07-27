@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Editor
 {
     public class MethodSelector : OdinSelector<DelegateInfo>
     {
