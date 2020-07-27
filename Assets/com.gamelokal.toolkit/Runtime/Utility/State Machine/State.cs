@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameLokal.Utility{
+namespace GameLokal.Utility.StateMachine {
     public class State : MonoBehaviour
     {
         public string StateName => gameObject.name;

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.BetterEvent
 {
     [Serializable]
     public struct BetterEvent

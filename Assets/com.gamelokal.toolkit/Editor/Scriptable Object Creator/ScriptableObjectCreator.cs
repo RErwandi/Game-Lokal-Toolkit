@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Editor
 {
     public class ScriptableObjectCreator : OdinMenuEditorWindow
     {
@@ -17,7 +17,7 @@ namespace GameLokal.Utility
                 t.IsClass &&
                 typeof(ScriptableObject).IsAssignableFrom(t) &&
                 !typeof(EditorWindow).IsAssignableFrom(t) &&
-                !typeof(Editor).IsAssignableFrom(t))
+                !typeof(UnityEditor.Editor).IsAssignableFrom(t))
             .ToHashSet();
 
         [MenuItem("Assets/Create Scriptable Object", priority = -1000)]

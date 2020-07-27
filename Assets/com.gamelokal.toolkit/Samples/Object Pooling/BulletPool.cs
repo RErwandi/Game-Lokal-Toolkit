@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GameLokal.Utility;
+﻿using GameLokal.Utility.ObjectPooler;
 using UnityEngine;
 
 public class BulletPool : ObjectPool<Bullet>

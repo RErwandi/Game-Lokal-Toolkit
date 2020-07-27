@@ -3,7 +3,7 @@ using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.BetterEvent
 {
     public class BetterEventListDrawer : OdinValueDrawer<BetterEvent>
     {

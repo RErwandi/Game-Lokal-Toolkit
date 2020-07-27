@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameLokal.Common;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.StateMachine
 {
     [AddComponentMenu("Game Lokal/State Machine")]
     public class StateMachine : MonoBehaviour
