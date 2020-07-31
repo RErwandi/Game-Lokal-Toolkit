@@ -13,7 +13,7 @@ namespace GameLokal.Editor
         [MenuItem("Tools/GameLokal/Preferences")]
         private static void OpenWindow()
         {
-            var window = GetWindow<GameLokalToolkitWindow>();
+            var window = GetWindow<GameLokalToolkitWindow>(title:"Game Lokal Preferences");
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 500);
         }
 
