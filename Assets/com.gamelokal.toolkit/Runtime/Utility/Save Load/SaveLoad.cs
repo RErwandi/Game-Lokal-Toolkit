@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameLokal.Utility.SaveLoad
 {
-    public class SaveLoad
+    public static class SaveLoad
     {
         public static void WriteFile(string json, string filename)
         {
@@ -16,7 +16,7 @@ namespace GameLokal.Utility.SaveLoad
             var path = FilePath(filename);
             if (File.Exists(path))
             {
-                using (StreamReader reader = new StreamReader(path))
+                using (var reader = new StreamReader(path))
                 {
                     return reader.ReadToEnd();
                 }

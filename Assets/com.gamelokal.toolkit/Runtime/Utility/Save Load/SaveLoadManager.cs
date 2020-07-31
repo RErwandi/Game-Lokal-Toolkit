@@ -8,39 +8,51 @@ namespace GameLokal.Utility.SaveLoad
 {
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {
-        private List<IGameSave> gameSaves = new List<IGameSave>();
+        /// <summary>
+        /// Used to remember filename that is currently player using
+        /// </summary>
         private string lastSaveFilename = "";
+        
+        private List<IGameSave> gameSaves = new List<IGameSave>();
         private SaveLoadConfig config;
+        
         private const string DEBUG_TYPE = "SaveLoad";
+        private const string FILE_EXTENSION = ".gls";
 
         private void Start()
         {
             config = SaveLoadConfig.Instance;
 
-            InvokeRepeating(nameof(AutoSave), config.autoSaveInterval.MinuteToSecond(), config.autoSaveInterval.MinuteToSecond());
+            if (config.useAutoSave)
+            {
+                InvokeRepeating(nameof(AutoSave), config.autoSaveInterval.MinuteToSecond(), config.autoSaveInterval.MinuteToSecond());
+            }
         }
 
         private void OnApplicationPause(bool pauseStatus)
         {
-            if (string.IsNullOrEmpty(lastSaveFilename)) return;
-            if (pauseStatus == false) return;
-            
+            if (string.IsNullOrEmpty(lastSaveFilename) || !pauseStatus || !config.saveOnApplicationPause) return;
+
             Save(lastSaveFilename);
         }
 
         private void OnApplicationQuit()
         {
-            if (string.IsNullOrEmpty(lastSaveFilename)) return;
+            if (string.IsNullOrEmpty(lastSaveFilename) || !config.saveOnApplicationQuit) return;
 
             Save(lastSaveFilename);
         }
 
         private void AutoSave()
         {
-            if (string.IsNullOrEmpty(lastSaveFilename)) return;
-
-            Log.Show("Auto Saving...", DEBUG_TYPE);
+            if (string.IsNullOrEmpty(lastSaveFilename))
+            {
+                Log.Show("Attempting auto save but no current save file is used at the moment.", DEBUG_TYPE);
+                return;
+            }
+            
             Save(lastSaveFilename);
+            Log.Show("Auto Saving...", DEBUG_TYPE);
         }
 
         public void Initialize(IGameSave gameSave)
@@ -48,53 +60,47 @@ namespace GameLokal.Utility.SaveLoad
             gameSaves.Add(gameSave);
         }
 
-        public void Save(string saveFileName)
+        public void Save(string saveFileName = "")
         {
-            lastSaveFilename = saveFileName;
-            var wrappers = new List<JsonWrapper>();
-            foreach (var gameSave in gameSaves)
+            if (string.IsNullOrEmpty(saveFileName))
             {
-                var json = new JsonWrapper();
-                json.uniqueName = gameSave.GetUniqueName();
-                json.value = JsonUtility.ToJson(gameSave.GetSaveData());
-                wrappers.Add(json);
+                saveFileName = config.defaultFilename;
             }
             
-            SaveLoad.WriteFile(JsonHelper.ToJson(wrappers, true),saveFileName + ".gl");
-            Log.Show($"Game saved to {Application.persistentDataPath}/{saveFileName}", DEBUG_TYPE);
+            lastSaveFilename = saveFileName;
+            var wrappers = gameSaves.Select(gameSave => new JsonWrapper {uniqueName = gameSave.GetUniqueName(), value = JsonUtility.ToJson(gameSave.GetSaveData())}).ToList();
+
+            SaveLoad.WriteFile(JsonHelper.ToJson(wrappers, true),saveFileName + FILE_EXTENSION);
+            Log.Show($"Game saved to {Application.persistentDataPath}/{saveFileName + FILE_EXTENSION}", DEBUG_TYPE);
         }
 
-        public void Load(string loadFileName)
+        public void Load(string loadFileName = "")
         {
-            ResetSaveData();
+            if (string.IsNullOrEmpty(loadFileName))
+            {
+                loadFileName = config.defaultFilename;
+            }
+
+            if (!SaveLoad.FileExist(loadFileName + FILE_EXTENSION))
+            {
+                Log.Warning($"No save file with name {loadFileName} is found", DEBUG_TYPE);
+                return;
+            }
+            
             lastSaveFilename = loadFileName;
             
-            if (!SaveLoad.FileExist(loadFileName + ".gl")) return;
-            var json = SaveLoad.Read(loadFileName + ".gl");
+            var json = SaveLoad.Read(loadFileName + FILE_EXTENSION);
             var wrappers = JsonHelper.FromJson<JsonWrapper>(json);
             foreach (var gameSave in gameSaves)
             {
                 foreach (var generic in from wrapper in wrappers where wrapper.uniqueName == gameSave.GetUniqueName() select JsonUtility.FromJson(wrapper.value, gameSave.GetSaveDataType()))
                 {
+                    gameSave.ResetData();
                     gameSave.OnLoad(generic);
                 }
             }
             
-            Log.Show($"Game loaded from {Application.persistentDataPath}/{loadFileName}", DEBUG_TYPE);
-        }
-
-        private void ResetSaveData()
-        {
-            foreach (var gameSave in gameSaves)
-            {
-                gameSave.ResetData();
-            }
-        }
-        
-        public void ChangeAutoSaveInterval(float minute)
-        {
-            config.autoSaveInterval = minute;
-            Log.Show($"Auto save interval has been changed to {minute} minute(s)", DEBUG_TYPE);
+            Log.Show($"Game loaded from {Application.persistentDataPath}/{loadFileName + FILE_EXTENSION}", DEBUG_TYPE);
         }
 
         /// <summary>
