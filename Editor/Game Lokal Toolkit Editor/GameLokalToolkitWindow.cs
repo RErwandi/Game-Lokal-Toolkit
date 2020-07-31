@@ -7,13 +7,13 @@ using UnityEditor;
 
 namespace GameLokal.Editor
 {
-    public class GameLokalToolkitEditor : OdinMenuEditorWindow
+    public class GameLokalToolkitWindow : OdinMenuEditorWindow
     {
 
-        [MenuItem("Tools/GameLokal/Toolkit Editor")]
+        [MenuItem("Tools/GameLokal/Preferences")]
         private static void OpenWindow()
         {
-            var window = GetWindow<GameLokalToolkitEditor>();
+            var window = GetWindow<GameLokalToolkitWindow>();
             window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 500);
         }
 
