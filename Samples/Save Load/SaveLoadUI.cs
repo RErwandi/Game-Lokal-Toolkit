@@ -5,11 +5,11 @@ public class SaveLoadUI : MonoBehaviour
 {
     public void Save()
     {
-        SaveLoadManager.Instance.Save("test");
+        SaveLoadManager.Instance.Save();
     }
 
     public void Load()
     {
-        SaveLoadManager.Instance.Load("test");
+        SaveLoadManager.Instance.Load();
     }
 }
