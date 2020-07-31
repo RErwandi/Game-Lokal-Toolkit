@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using GameLokal.Utility;
+﻿using GameLokal.Utility.SaveLoad;
 using UnityEngine;
 
 public class SaveLoadUI : MonoBehaviour
