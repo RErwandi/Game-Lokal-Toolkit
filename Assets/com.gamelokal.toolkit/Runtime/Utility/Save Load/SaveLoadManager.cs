@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GameLokal.Common;
 using GameLokal.Utility.Singleton;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.SaveLoad
 {
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {
@@ -50,26 +51,33 @@ namespace GameLokal.Utility
         public void Save(string saveFileName)
         {
             lastSaveFilename = saveFileName;
-            
+            var wrappers = new List<JsonWrapper>();
             foreach (var gameSave in gameSaves)
             {
-                ES3.Save(gameSave.GetUniqueName(), gameSave.GetSaveData(), $"{saveFileName}.es3");
+                var json = new JsonWrapper();
+                json.uniqueName = gameSave.GetUniqueName();
+                json.value = JsonUtility.ToJson(gameSave.GetSaveData());
+                wrappers.Add(json);
             }
             
+            SaveLoad.WriteFile(JsonHelper.ToJson(wrappers, true),saveFileName + ".gl");
             Log.Show($"Game saved to {Application.persistentDataPath}/{saveFileName}", DEBUG_TYPE);
         }
 
         public void Load(string loadFileName)
         {
-            if (!ES3.FileExists($"{loadFileName}.es3"))
-                return;
-            
             ResetSaveData();
             lastSaveFilename = loadFileName;
             
+            if (!SaveLoad.FileExist(loadFileName + ".gl")) return;
+            var json = SaveLoad.Read(loadFileName + ".gl");
+            var wrappers = JsonHelper.FromJson<JsonWrapper>(json);
             foreach (var gameSave in gameSaves)
             {
-                gameSave.OnLoad(ES3.Load(gameSave.GetUniqueName(), $"{loadFileName}.es3"));
+                foreach (var generic in from wrapper in wrappers where wrapper.uniqueName == gameSave.GetUniqueName() select JsonUtility.FromJson(wrapper.value, gameSave.GetSaveDataType()))
+                {
+                    gameSave.OnLoad(generic);
+                }
             }
             
             Log.Show($"Game loaded from {Application.persistentDataPath}/{loadFileName}", DEBUG_TYPE);
@@ -96,6 +104,13 @@ namespace GameLokal.Utility
         {
             lastSaveFilename = "";
             Log.Show($"Last saved filename has been cleared. Auto-save is now turned off until saving or loading is occured.", DEBUG_TYPE);
+        }
+
+        [System.Serializable]
+        private class JsonWrapper
+        {
+            public string uniqueName;
+            public string value;
         }
     }
 }

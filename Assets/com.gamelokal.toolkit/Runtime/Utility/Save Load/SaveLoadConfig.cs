@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 
-namespace GameLokal.Utility
+namespace GameLokal.Utility.SaveLoad
 {
     [GlobalConfig(GlobalConfigHelper.defaultGlobalConfigLocation + "Utility/Save Load/Resources")]
     public class SaveLoadConfig : GlobalConfig<SaveLoadConfig>
