@@ -19,7 +19,7 @@ namespace GameLokal.Editor
         [SerializeField] private float _labelWidth = 200;
         private bool _showSettings;
 
-        [MenuItem("Tools/Watch Window")]
+        [MenuItem("Tools/GameLokal/Watch Window")]
         public static void ShowMenu()
         {
             _instance = GetWindow<WatchWindow>();
