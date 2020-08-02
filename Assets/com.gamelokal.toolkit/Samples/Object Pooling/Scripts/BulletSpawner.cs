@@ -14,6 +14,7 @@ public class BulletSpawner : MonoBehaviour
     private void SpawnBullet()
     {
         var bullet = pool.Rent();
-        bullet.pool = pool;
+        bullet.transform.position = transform.position;
+        bullet.Pool = pool;
     }
 }
