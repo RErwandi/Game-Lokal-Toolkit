@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
-    public BulletPool pool;
+    
+    private BulletPool pool;
+    public BulletPool Pool
+    {
+        get => pool;
+        set => pool = value;
+    }
+    
     private void Update()
     {
         transform.Translate(Vector3.forward * (speed * Time.deltaTime));
