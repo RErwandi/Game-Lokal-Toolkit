@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GameLokal.Common;
 using GameLokal.Utility.Singleton;
@@ -19,10 +20,13 @@ namespace GameLokal.Utility.SaveLoad
         private const string DEBUG_TYPE = "SaveLoad";
         private const string FILE_EXTENSION = ".gls";
 
-        private void Start()
+        private void Awake()
         {
             config = SaveLoadConfig.Instance;
+        }
 
+        private void Start()
+        {
             if (config.useAutoSave)
             {
                 InvokeRepeating(nameof(AutoSave), config.autoSaveInterval.MinuteToSecond(), config.autoSaveInterval.MinuteToSecond());
