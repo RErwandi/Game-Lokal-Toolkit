@@ -47,7 +47,7 @@ namespace GameLokal.Utility.MenuManager
             Instance = null;
         }
 
-        private GameObject CreateInstance(string menuName)
+        public GameObject CreateInstance(string menuName)
         {
             var prefab = GetPrefab(menuName);
 

@@ -16,7 +16,7 @@ namespace GameLokal.Utility.MenuManager
             Instance = null;
         }
 
-        protected static void Open()
+        public static void Open()
         {
             if (Instance == null)
             {
@@ -30,7 +30,7 @@ namespace GameLokal.Utility.MenuManager
             }
         }
 
-        protected static void Close()
+        public static void Close()
         {
             if (Instance == null)
             {
