@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using GameLokal.Utility.Singleton;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameLokal.Utility.MenuManager
 {
     [DisallowMultipleComponent]
-    public class MenuManager : MonoBehaviour
+    public class MenuManager : Singleton<MenuManager>
     {
         [SerializeField]
         private Menu[] menuScreens;
@@ -15,36 +17,19 @@ namespace GameLokal.Utility.MenuManager
             set => menuScreens = value;
         }
 
-        [SerializeField]
+        public bool autoStartScreen;
+        [SerializeField, ShowIf("autoStartScreen")]
         private int startScreen;
-
-        public int StartScreen
-        {
-            get => startScreen;
-            set => startScreen = value;
-        }
 
         private Stack<Menu> menuStack = new Stack<Menu>();
 
-        public static MenuManager Instance { get; set; }
-
         private void Start()
         {
-            Instance = this;
-            if (MenuScreens.Length > 0 + StartScreen)
+            if (MenuScreens.Length > 0 + startScreen && autoStartScreen)
             {
-                var startMenu = CreateInstance(MenuScreens[StartScreen].name);
+                var startMenu = CreateInstance(MenuScreens[startScreen].name);
                 OpenMenu(startMenu.GetMenu());
             }
-            else
-            {
-                Debug.LogError("Not enough Menu Screens configured");
-            }
-        }
-
-        private void OnDestroy()
-        {
-            Instance = null;
         }
 
         public GameObject CreateInstance(string menuName)
