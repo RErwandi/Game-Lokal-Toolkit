@@ -1,3 +1,15 @@
-﻿{
-	"name": "com.gamelokal.toolkit"
+{
+    "name": "com.gamelokal.toolkit",
+    "references": [
+        "GUID:5c786597f4122bd4599f5c93dd47847f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
